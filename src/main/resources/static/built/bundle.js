@@ -41267,27 +41267,27 @@ function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefine
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
-  useState = _require.useState;
+  useState = _require.useState,
+  useEffect = _require.useEffect;
 var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
   Link = _require2.Link;
 var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
 var NuevoProductoPage = function NuevoProductoPage() {
-  var _useState = useState(''),
+  var _useState = useState([]),
     _useState2 = _slicedToArray(_useState, 2),
-    nombre = _useState2[0],
-    setNombre = _useState2[1];
+    productos = _useState2[0],
+    setProductos = _useState2[1];
   var _useState3 = useState(''),
     _useState4 = _slicedToArray(_useState3, 2),
-    precio = _useState4[0],
-    setPrecio = _useState4[1];
+    idProducto = _useState4[0],
+    setIdProducto = _useState4[1];
   var handleSubmit = function handleSubmit(evento) {
     evento.preventDefault();
     client({
       method: 'POST',
       path: '/api/productos',
       entity: {
-        nombre: nombre,
-        precio: precio
+        producto: 'http://localhost:8080/api/productos/' + idProducto
       },
       headers: {
         'Content-Type': 'application/json'
@@ -41296,25 +41296,43 @@ var NuevoProductoPage = function NuevoProductoPage() {
       window.location = '/';
     });
   };
+  useEffect(function () {
+    client({
+      method: 'GET',
+      path: '/api/productos'
+    }).done(function (response) {
+      setProductos(response.entity._embedded.productos);
+    });
+  }, []);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Nuevo Producto"), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("label", null, "Nombre"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    id: "nombre",
-    name: "nombre",
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "producto"
+  }, "Producto"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+    name: "producto",
+    id: "producto",
     onChange: function onChange(e) {
-      return setNombre(e.target.value);
+      setIdProducto(e.target.value);
     }
-  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Precio"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    id: "precio",
-    name: "precio",
+  }, productos.map(function (producto) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: producto._links.self.href,
+      value: producto._links.self.href
+    }, "[", producto.nombre, "]");
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Precio"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+    name: "producto",
+    id: "producto",
     onChange: function onChange(e) {
-      return setPrecio(e.target.value);
+      setIdProducto(e.target.value);
     }
-  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+  }, productos.map(function (producto) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: producto._links.self.href,
+      value: producto._links.self.href
+    }, "[", producto.precio, "]");
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "submit",
-    value: "Registrar Producto"
+    value: "Guardar"
   })), /*#__PURE__*/React.createElement(Link, {
     to: "/"
   }, "Volver"));

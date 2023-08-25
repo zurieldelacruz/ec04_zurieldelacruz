@@ -1,40 +1,63 @@
 const React = require('react');
-const {useState} = require('react');
+const { useState, useEffect } = require('react');
 const { Link } = require('react-router-dom');
 const client = require('../client');
 
-
 const NuevoProductoPage = () => {
 
-    const [nombre, setNombre] = useState('')
-    const [precio, setPrecio] = useState('')
-    
+    const [productos, setProductos] = useState([]);
+    const [idProducto, setIdProducto] = useState('');
 
-    const handleSubmit = (evento)=>{
+    const handleSubmit = (evento) => {
         evento.preventDefault();
         client({
             method: 'POST',
             path: '/api/productos',
-            entity: {nombre: nombre, precio: precio},
-            headers: {'Content-Type': 'application/json'}
-        }).done(()=>{
+            entity: {
+                producto: 'http://localhost:8080/api/productos/' + idProducto
+            },
+            headers: { 'Content-Type': 'application/json' }
+        }).done(() => {
             window.location = '/';
-        })
-    }
+        });
+    };
+
+    useEffect(() => {
+        client({
+            method: 'GET',
+            path: '/api/productos'
+        }).done(response => {
+            setProductos(response.entity._embedded.productos);
+        });
+    }, []);
 
     return (
         <>
-        <h1>Nuevo Producto</h1>
-        <form onSubmit={handleSubmit}>
-            <label>Nombre</label> <br />
-            <input type="text" id='nombre' name='nombre' onChange={e=>setNombre(e.target.value)} /> <br />
-            <label>Precio</label> <br />
-            <input type="text" id='precio' name='precio' onChange={e=>setPrecio(e.target.value)} /> <br />
-            <input type="submit" value="Registrar Producto" />
-        </form>
-        <Link to="/">Volver</Link>
+            <h1>Nuevo Producto</h1>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor='producto'>Producto</label> <br />
+                <select name="producto" id="producto" onChange={(e) => { setIdProducto(e.target.value) }}>
+                    {productos.map(producto => (
+                        <option key={producto._links.self.href} value={producto._links.self.href}>
+                            [{producto.nombre}]
+                        </option>
+                    ))}
+                </select><br />
+
+                <label>Precio</label> <br />
+                <select name="producto" id="producto" onChange={(e) => { setIdProducto(e.target.value) }}>
+                    {productos.map(producto => (
+                        <option key={producto._links.self.href} value={producto._links.self.href}>
+                            [{producto.precio}]
+                        </option>
+                    ))}
+                </select><br />
+
+                <input type="submit" value="Guardar" />
+            </form>
+            <Link to="/">Volver</Link>
         </>
-    )
+    );
 }
 
 module.exports = NuevoProductoPage;
