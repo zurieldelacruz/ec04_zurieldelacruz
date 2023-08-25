@@ -22,7 +22,8 @@ class HomePage extends React.Component {
 	render() {
 		return (
 			<>
-				<h1>Desarrollo de la Evaluacion 4</h1>
+				<h1>Desarrollo de la Evaluacion Final 4</h1>
+				<h1>Articulos de Computo</h1>
 				<h2>Zuriel De La Cruz Ibarra</h2>
 
 				<div style={  {"width": "100%", "display": "flex"}   }>
