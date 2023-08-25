@@ -16,6 +16,7 @@ const VerProductoPage = () => {
     }, [])
 
 
+    
 
     return (
         <>
