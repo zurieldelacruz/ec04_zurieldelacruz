@@ -41046,7 +41046,7 @@ var HomePage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Desarrollo de la Evaluacion 4"), /*#__PURE__*/React.createElement("h2", null, "Zuriel De La Cruz Ibarra"), /*#__PURE__*/React.createElement("div", {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Desarrollo de la Evaluacion Final 4"), /*#__PURE__*/React.createElement("h2", null, "Articulos de Computo"), /*#__PURE__*/React.createElement("h3", null, "Zuriel De La Cruz Ibarra"), /*#__PURE__*/React.createElement("div", {
         style: {
           "width": "100%",
           "display": "flex"

@@ -23,8 +23,8 @@ class HomePage extends React.Component {
 		return (
 			<>
 				<h1>Desarrollo de la Evaluacion Final 4</h1>
-				<h1>Articulos de Computo</h1>
-				<h2>Zuriel De La Cruz Ibarra</h2>
+				<h2>Articulos de Computo</h2>
+				<h3>Zuriel De La Cruz Ibarra</h3>
 
 				<div style={  {"width": "100%", "display": "flex"}   }>
 					<div style={{"width": "calc(100% / 3)"}}>
